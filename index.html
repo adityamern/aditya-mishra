@@ -14,16 +14,16 @@
   --a2:#b58cff;
 }
 
-*{box-sizing:border-box}
+*{box-sizing:border-box;margin:0;padding:0;}
 html,body{
-  margin:0;height:100%;
+  height:100%;
   background:
-    radial-gradient(1200px 600px at 10% -10%,#14163a,transparent),
-    radial-gradient(900px 500px at 90% 10%,#24133c,transparent),
+    radial-gradient(800px 400px at 10% -10%,#14163a,transparent),
+    radial-gradient(600px 300px at 90% 10%,#24133c,transparent),
     var(--bg);
   color:var(--fg);
   font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
-  overflow:hidden;
+  overflow-x:hidden;
 }
 
 /* ambient noise */
@@ -34,38 +34,33 @@ body::after{
   pointer-events:none;
 }
 
-/* scene */
-.scene{position:absolute;inset:0;perspective:1400px}
-
-/* floating orbs */
+/* scene & orbs */
+.scene{position:absolute;inset:0;perspective:800px;}
 .orb{
-  position:absolute;width:460px;height:460px;border-radius:50%;
+  position:absolute;border-radius:50%;
   background:radial-gradient(circle at 30% 30%,#9aa6ff,transparent 60%);
-  filter:blur(70px);
+  filter:blur(50px);
   animation:float 18s ease-in-out infinite;
 }
-.orb.two{
-  right:-140px;top:25%;
-  background:radial-gradient(circle at 30% 30%,#c49bff,transparent 60%);
-  animation-duration:24s;
-}
-@keyframes float{50%{transform:translateY(-70px)}}
+.orb.one{width:300px;height:300px;top:10%;left:-60px;}
+.orb.two{width:220px;height:220px;top:25%;right:-40px;background:radial-gradient(circle at 30% 30%,#c49bff,transparent 60%);animation-duration:24s;}
+@keyframes float{50%{transform:translateY(-40px);}}
 
 /* grid */
 .grid{
   position:absolute;inset:0;
   background:
-    linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
-  background-size:90px 90px;
-  mask-image:radial-gradient(circle at center,black 20%,transparent 70%);
+    linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(circle at center,black 15%,transparent 70%);
   pointer-events:none;
 }
 
-/* cinematic light streak */
+/* cinematic streak */
 .streak{
   position:absolute;
-  top:18%;
+  top:15%;
   left:-40%;
   width:180%;
   height:2px;
@@ -73,7 +68,7 @@ body::after{
     90deg,
     transparent,
     rgba(140,160,255,.0),
-    rgba(140,160,255,.6),
+    rgba(140,160,255,.5),
     rgba(140,160,255,.0),
     transparent
   );
@@ -82,9 +77,9 @@ body::after{
   opacity:.6;
 }
 @keyframes streakMove{
-  0%{transform:translateY(0) translateX(0)}
-  50%{transform:translateY(260px) translateX(40%)}
-  100%{transform:translateY(520px) translateX(80%)}
+  0%{transform:translateY(0) translateX(0);}
+  50%{transform:translateY(180px) translateX(40%);}
+  100%{transform:translateY(360px) translateX(80%);}
 }
 
 /* layout */
@@ -93,27 +88,28 @@ body::after{
   display:flex;
   align-items:center;
   justify-content:center;
+  padding:2rem;
 }
 
 .card{
   position:relative;
-  width:min(980px,92vw);
-  padding:4rem 4.5rem 3.5rem;
-  border-radius:30px;
-  backdrop-filter:blur(32px) saturate(160%);
-  background:linear-gradient(180deg,rgba(255,255,255,.1),rgba(255,255,255,.02));
-  border:1px solid rgba(255,255,255,.12);
-  box-shadow:0 50px 140px rgba(0,0,0,.6);
+  width:100%;
+  max-width:420px;
+  padding:2.5rem 2rem;
+  border-radius:24px;
+  backdrop-filter:blur(24px) saturate(160%);
+  background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.02));
+  border:1px solid rgba(255,255,255,.1);
+  box-shadow:0 30px 80px rgba(0,0,0,.5);
   transform-style:preserve-3d;
-  animation:enter 1.1s cubic-bezier(.2,.9,.2,1);
+  animation:enter 1s cubic-bezier(.2,.9,.2,1);
 }
-@keyframes enter{from{opacity:0;transform:translateY(40px) scale(.97)}}
+@keyframes enter{from{opacity:0;transform:translateY(30px) scale(.97)}}
 
 h1{
-  margin:0;
-  font-size:clamp(3.4rem,6.5vw,5.6rem);
+  font-size:clamp(2.2rem,6vw,3.4rem);
   font-weight:620;
-  letter-spacing:-.04em;
+  letter-spacing:-.02em;
   background:linear-gradient(90deg,#fff,#c3ccff,#fff);
   background-size:200%;
   -webkit-background-clip:text;
@@ -123,33 +119,36 @@ h1{
 @keyframes shine{to{background-position:200%}}
 
 .sub{
-  margin-top:.8rem;
+  margin-top:.6rem;
   color:var(--muted);
-  font-size:1.05rem;
+  font-size:0.95rem;
+  text-align:center;
 }
 
 /* timer */
 .timer{
-  margin:3rem 0 2.2rem;
+  margin:2rem 0 1.5rem;
   display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:1.2rem;
+  grid-template-columns:repeat(2,1fr);
+  gap:0.8rem;
 }
+@media(min-width:500px){ .timer{grid-template-columns:repeat(4,1fr);} }
+
 .unit{
-  padding:1.2rem 1rem;
-  border-radius:18px;
+  padding:.8rem .5rem;
+  border-radius:12px;
   background:rgba(255,255,255,.06);
   border:1px solid rgba(255,255,255,.1);
   text-align:center;
 }
 .val{
-  font-size:2.4rem;
+  font-size:1.6rem;
   font-weight:600;
 }
 .lbl{
   margin-top:.2rem;
-  font-size:.75rem;
-  letter-spacing:.12em;
+  font-size:.65rem;
+  letter-spacing:.1em;
   text-transform:uppercase;
   color:var(--muted);
 }
@@ -157,21 +156,22 @@ h1{
 /* notify */
 .notify{
   display:flex;
-  gap:.8rem;
-  margin-bottom:2.2rem;
+  flex-direction:column;
+  gap:.6rem;
+  margin-bottom:1.5rem;
 }
 .notify input{
   flex:1;
-  padding:1rem 1.1rem;
-  border-radius:14px;
+  padding:.9rem 1rem;
+  border-radius:12px;
   border:1px solid rgba(255,255,255,.14);
   background:rgba(0,0,0,.35);
   color:var(--fg);
   outline:none;
 }
 .notify button{
-  padding:1rem 1.4rem;
-  border-radius:14px;
+  padding:.9rem 1rem;
+  border-radius:12px;
   border:none;
   cursor:pointer;
   font-weight:500;
@@ -182,31 +182,31 @@ h1{
 /* footer inside card */
 .footer{
   display:flex;
-  justify-content: space-between; /* socials left, contact right */
-  align-items: center;
-  gap:1rem;
+  flex-direction:column;
+  align-items:center;
+  gap:.6rem;
 }
 .socials a{
   text-decoration:none;
   color:var(--muted);
-  font-size:.9rem;
+  font-size:.8rem;
 }
 .socials a:hover{color:#fff}
 .contact{
-  font-size:.85rem;
+  font-size:.75rem;
   color:var(--muted);
 }
 
 /* tilt */
 .card[data-tilt]{transition:transform .2s ease}
 
-/* copyright fixed at bottom of page */
+/* copyright fixed at bottom */
 .copyright-footer {
   position: fixed;
   bottom: 10px;
   width: 100%;
   text-align: center;
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   color: var(--muted);
   pointer-events: none;
 }
@@ -216,7 +216,7 @@ h1{
 <body>
 
 <div class="scene">
-  <div class="orb"></div>
+  <div class="orb one"></div>
   <div class="orb two"></div>
   <div class="grid"></div>
   <div class="streak"></div>
@@ -239,18 +239,23 @@ h1{
       <button type="submit" aria-label="Subscribe for notifications">Notify</button>
     </form>
 
-    
+    <div class="footer">
+      <div class="socials">
+        <a href="https://x.com/adityamern" target="_blank">X</a> |
+        <a href="https://www.linkedin.com/in/adityamern/" target="_blank">LinkedIn</a> |
+        <a href="https://github.com/adityamern" target="_blank">GitHub</a>
+      </div>
+      <div class="contact">hi@mishraaditya.com</div>
+    </div>
   </div>
 </div>
 
-<!-- Copyright fixed at bottom -->
 <div class="copyright-footer">
   © 2026 Aditya Mishra. All rights reserved.
 </div>
 
 <script>
-/* real countdown to a fixed target date */
-const target = new Date("2026-01-30T00:00:00"); // set your desired launch date
+const target = new Date("2026-01-30T00:00:00");
 const dEl=document.getElementById("d");
 const hEl=document.getElementById("h");
 const mEl=document.getElementById("m");
@@ -272,7 +277,7 @@ function updateCountdown() {
 updateCountdown();
 setInterval(updateCountdown, 1000);
 
-/* tilt - only on desktop */
+/* tilt desktop only */
 if (!("ontouchstart" in window)) {
   const card = document.querySelector("[data-tilt]");
   addEventListener("mousemove", e => {
@@ -282,7 +287,7 @@ if (!("ontouchstart" in window)) {
   });
 }
 
-/* notify form placeholder */
+/* notify form */
 const notifyForm = document.querySelector(".notify");
 notifyForm.addEventListener("submit", e => {
   e.preventDefault();
