@@ -1,297 +1,85 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Coming Soon</title>
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
 
-<style>
-:root{
-  --bg:#050509;
-  --fg:#f6f7ff;
-  --muted:#9aa0c2;
-  --a1:#7f8cff;
-  --a2:#b58cff;
-}
+export default function Portfolio() {
+  return (
+    <div className="min-h-screen bg-gray-950 text-white p-6 md:p-12">
+      {/* Hero Section */}
+      <section className="text-center mb-16">
+        <motion.h1 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-4xl md:text-6xl font-bold"
+        >
+          Hi, I’m Aditya Mishra 👋
+        </motion.h1>
+        <p className="text-gray-400 mt-4 text-lg">
+          MERN Stack Developer | BSc Student | Tech Enthusiast
+        </p>
+        <div className="mt-6 flex gap-4 justify-center">
+          <Button asChild>
+            <a href="mailto:hi@mishraaditya.com">Contact Me</a>
+          </Button>
+          <Button variant="outline" asChild>
+            <a href="https://github.com/adityamern" target="_blank">GitHub</a>
+          </Button>
+        </div>
+      </section>
 
-*{box-sizing:border-box;margin:0;padding:0;}
-html,body{
-  height:100%;
-  background:
-    radial-gradient(800px 400px at 10% -10%,#14163a,transparent),
-    radial-gradient(600px 300px at 90% 10%,#24133c,transparent),
-    var(--bg);
-  color:var(--fg);
-  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
-  overflow-x:hidden;
-}
+      {/* About */}
+      <section className="mb-16">
+        <h2 className="text-2xl font-semibold mb-4">About Me</h2>
+        <Card className="bg-gray-900 border-gray-800">
+          <CardContent className="p-6 text-gray-300">
+            I am Aditya Mishra, currently pursuing a BSc degree and focused on becoming a MERN stack developer.
+            I enjoy building full-stack web applications using MongoDB, Express, React, and Node.js.
+            I am also interested in DSA and improving my problem-solving skills.
+          </CardContent>
+        </Card>
+      </section>
 
-/* ambient noise */
-body::after{
-  content:"";
-  position:fixed;inset:0;
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");
-  pointer-events:none;
-}
+      {/* Skills */}
+      <section className="mb-16">
+        <h2 className="text-2xl font-semibold mb-4">Skills</h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {["MongoDB", "Express", "React", "Node.js", "JavaScript", "HTML", "CSS", "Git"].map(
+            (skill) => (
+              <Card key={skill} className="bg-gray-900 border-gray-800">
+                <CardContent className="p-4 text-center text-gray-300">
+                  {skill}
+                </CardContent>
+              </Card>
+            )
+          )}
+        </div>
+      </section>
 
-/* scene & orbs */
-.scene{position:absolute;inset:0;perspective:800px;}
-.orb{
-  position:absolute;border-radius:50%;
-  background:radial-gradient(circle at 30% 30%,#9aa6ff,transparent 60%);
-  filter:blur(50px);
-  animation:float 18s ease-in-out infinite;
-}
-.orb.one{width:300px;height:300px;top:10%;left:-60px;}
-.orb.two{width:220px;height:220px;top:25%;right:-40px;background:radial-gradient(circle at 30% 30%,#c49bff,transparent 60%);animation-duration:24s;}
-@keyframes float{50%{transform:translateY(-40px);}}
+      {/* Projects */}
+      <section className="mb-16">
+        <h2 className="text-2xl font-semibold mb-4">Projects</h2>
+        <div className="grid md:grid-cols-2 gap-6">
+          {[
+            { title: "E-Commerce App", desc: "Full-stack MERN e-commerce platform with authentication." },
+            { title: "Task Manager", desc: "A productivity app built using React and Node.js." }
+          ].map((p) => (
+            <Card key={p.title} className="bg-gray-900 border-gray-800">
+              <CardContent className="p-6">
+                <h3 className="text-xl font-semibold">{p.title}</h3>
+                <p className="text-gray-400 mt-2">{p.desc}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </section>
 
-/* grid */
-.grid{
-  position:absolute;inset:0;
-  background:
-    linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
-  background-size:60px 60px;
-  mask-image:radial-gradient(circle at center,black 15%,transparent 70%);
-  pointer-events:none;
-}
-
-/* cinematic streak */
-.streak{
-  position:absolute;
-  top:15%;
-  left:-40%;
-  width:180%;
-  height:2px;
-  background:linear-gradient(
-    90deg,
-    transparent,
-    rgba(140,160,255,.0),
-    rgba(140,160,255,.5),
-    rgba(140,160,255,.0),
-    transparent
-  );
-  filter:blur(1px);
-  animation:streakMove 7s linear infinite;
-  opacity:.6;
-}
-@keyframes streakMove{
-  0%{transform:translateY(0) translateX(0);}
-  50%{transform:translateY(180px) translateX(40%);}
-  100%{transform:translateY(360px) translateX(80%);}
-}
-
-/* layout */
-.wrap{
-  height:100%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:2rem;
-}
-
-.card{
-  position:relative;
-  width:100%;
-  max-width:420px;
-  padding:2.5rem 2rem;
-  border-radius:24px;
-  backdrop-filter:blur(24px) saturate(160%);
-  background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.02));
-  border:1px solid rgba(255,255,255,.1);
-  box-shadow:0 30px 80px rgba(0,0,0,.5);
-  transform-style:preserve-3d;
-  animation:enter 1s cubic-bezier(.2,.9,.2,1);
-}
-@keyframes enter{from{opacity:0;transform:translateY(30px) scale(.97)}}
-
-h1{
-  font-size:clamp(2.2rem,6vw,3.4rem);
-  font-weight:620;
-  letter-spacing:-.02em;
-  background:linear-gradient(90deg,#fff,#c3ccff,#fff);
-  background-size:200%;
-  -webkit-background-clip:text;
-  color:transparent;
-  animation:shine 6s linear infinite;
-}
-@keyframes shine{to{background-position:200%}}
-
-.sub{
-  margin-top:.6rem;
-  color:var(--muted);
-  font-size:0.95rem;
-  text-align:center;
-}
-
-/* timer */
-.timer{
-  margin:2rem 0 1.5rem;
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:0.8rem;
-}
-@media(min-width:500px){ .timer{grid-template-columns:repeat(4,1fr);} }
-
-.unit{
-  padding:.8rem .5rem;
-  border-radius:12px;
-  background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.1);
-  text-align:center;
-}
-.val{
-  font-size:1.6rem;
-  font-weight:600;
-}
-.lbl{
-  margin-top:.2rem;
-  font-size:.65rem;
-  letter-spacing:.1em;
-  text-transform:uppercase;
-  color:var(--muted);
-}
-
-/* notify */
-.notify{
-  display:flex;
-  flex-direction:column;
-  gap:.6rem;
-  margin-bottom:1.5rem;
-}
-.notify input{
-  flex:1;
-  padding:.9rem 1rem;
-  border-radius:12px;
-  border:1px solid rgba(255,255,255,.14);
-  background:rgba(0,0,0,.35);
-  color:var(--fg);
-  outline:none;
-}
-.notify button{
-  padding:.9rem 1rem;
-  border-radius:12px;
-  border:none;
-  cursor:pointer;
-  font-weight:500;
-  color:#0a0a12;
-  background:linear-gradient(90deg,var(--a1),var(--a2));
-}
-
-/* footer inside card */
-.footer{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:.6rem;
-}
-.socials a{
-  text-decoration:none;
-  color:var(--muted);
-  font-size:.8rem;
-}
-.socials a:hover{color:#fff}
-.contact{
-  font-size:.75rem;
-  color:var(--muted);
-}
-
-/* tilt */
-.card[data-tilt]{transition:transform .2s ease}
-
-/* copyright fixed at bottom */
-.copyright-footer {
-  position: fixed;
-  bottom: 10px;
-  width: 100%;
-  text-align: center;
-  font-size: 0.75rem;
-  color: var(--muted);
-  pointer-events: none;
-}
-</style>
-</head>
-
-<body>
-
-<div class="scene">
-  <div class="orb one"></div>
-  <div class="orb two"></div>
-  <div class="grid"></div>
-  <div class="streak"></div>
-</div>
-
-<div class="wrap">
-  <div class="card" data-tilt>
-    <h1>Coming Soon</h1>
-    <div class="sub">Something significant is in motion.</div>
-
-    <div class="timer">
-      <div class="unit"><div class="val" id="d">22</div><div class="lbl">Days</div></div>
-      <div class="unit"><div class="val" id="h">00</div><div class="lbl">Hours</div></div>
-      <div class="unit"><div class="val" id="m">00</div><div class="lbl">Minutes</div></div>
-      <div class="unit"><div class="val" id="s">00</div><div class="lbl">Seconds</div></div>
+      {/* Contact */}
+      <section className="text-center">
+        <h2 className="text-2xl font-semibold mb-4">Contact</h2>
+        <p className="text-gray-400">Email: hi@mishraaditya.com</p>
+        <p className="text-gray-400">GitHub: github.com/adityamern</p>
+        <p className="text-gray-400">LinkedIn: linkedin.com/in/adityamern</p>
+      </section>
     </div>
-
-    <form class="notify">
-      <input type="email" placeholder="Get notified" aria-label="Enter your email to get notified" />
-      <button type="submit" aria-label="Subscribe for notifications">Notify</button>
-    </form>
-
-    <div class="footer">
-    
-  
-  </div>
-</div>
-
-<div class="copyright-footer">
-  © 2026 Aditya Mishra. All rights reserved.
-</div>
-
-<script>
-const target = new Date("2026-01-30T00:00:00");
-const dEl=document.getElementById("d");
-const hEl=document.getElementById("h");
-const mEl=document.getElementById("m");
-const sEl=document.getElementById("s");
-
-function updateCountdown() {
-  const now = new Date();
-  let t = Math.max(0, target - now);
-  const d = Math.floor(t / 864e5);
-  const h = Math.floor(t / 36e5) % 24;
-  const m = Math.floor(t / 6e4) % 60;
-  const s = Math.floor(t / 1e3) % 60;
-  dEl.textContent = String(d).padStart(2,"0");
-  hEl.textContent = String(h).padStart(2,"0");
-  mEl.textContent = String(m).padStart(2,"0");
-  sEl.textContent = String(s).padStart(2,"0");
+  );
 }
-
-updateCountdown();
-setInterval(updateCountdown, 1000);
-
-/* tilt desktop only */
-if (!("ontouchstart" in window)) {
-  const card = document.querySelector("[data-tilt]");
-  addEventListener("mousemove", e => {
-    const x = (e.clientX / innerWidth - 0.5) * 14;
-    const y = (e.clientY / innerHeight - 0.5) * -14;
-    card.style.transform = `rotateX(${y}deg) rotateY(${x}deg)`;
-  });
-}
-
-/* notify form */
-const notifyForm = document.querySelector(".notify");
-notifyForm.addEventListener("submit", e => {
-  e.preventDefault();
-  const email = notifyForm.querySelector("input").value;
-  if (email) {
-    alert(`You will be notified at ${email} when we launch!`);
-  }
-});
-</script>
-
-</body>
-</html>
